@@ -1,15 +1,11 @@
-document.addEventListener("DOMContentLoaded", () => {
-  const galleryItems = document.querySelectorAll(".gallery_item");
-  const detailedImage = document.querySelector(".detailedContainer_image");
-  const detailedTitle = document.querySelector(".detailedContainer_title");
+const startBtn = document.querySelector('.button-start');
+const stopBtn = document.querySelector('.button-stop');
+const rotatingWrapper = document.querySelector('.rotating-wrapper');
 
-  galleryItems.forEach((item) => {
-    item.addEventListener("click", () => {
-      const img = item.querySelector("img");
-      const text = item.querySelector(".gallery_item_description");
+startBtn.addEventListener('click', () => {
+  rotatingWrapper.classList.add('rotate');
+});
 
-      detailedImage.src = img.src;
-      detailedTitle.textContent = text.textContent;
-    });
-  });
+stopBtn.addEventListener('click', () => {
+  rotatingWrapper.classList.remove('rotate');
 });
