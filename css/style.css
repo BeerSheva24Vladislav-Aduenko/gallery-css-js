@@ -118,6 +118,7 @@ h2 {
   position: absolute;
   top: 0.5rem;
   right: 0.5rem;
+  cursor: pointer;
 }
 
 @media screen and (min-width: 500px) {
