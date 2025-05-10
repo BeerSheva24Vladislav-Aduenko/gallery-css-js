@@ -1,236 +1,117 @@
-html {
-  font-size: 62.5%;
+.none {
+  display: none;
 }
-body {
-  margin: 0;
- 
+
+.query-section {
+  max-width: 600px;
+  margin: 20px auto;
+  padding: 20px;
+  background: #f9f9f9;
+  border-radius: 8px;
 }
-h2 {
-  margin: 0;
-}
-.animation-left {
-  animation: backInLeft;
-  animation-duration: 2s;
-}
-.animation-right {
-  animation: backInRight;
-  animation-duration: 2s;
-}
-.main {
+
+.query-form {
   display: flex;
   flex-direction: column;
-  justify-content: start;
+  gap: 10px;
 }
-.detailedFrame {
-  flex-grow: 1;
+
+.query-form label {
   display: flex;
-  justify-content: center;
-  margin-top: 2rem;
+  flex-direction: column;
+  font-weight: bold;
 }
-.detailedContainer {
-  position: relative;
-  
+
+.query-form input {
+  padding: 8px;
+  margin-top: 4px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
 }
-.detailedContainer_image {
-  width: 30rem;
-  height: 25rem;
-  object-fit: cover;
- border-radius: 30px;
-}
-.detailedContainer_title {
-  display: inline-block;
-  width: 30ch;
-  position: absolute;
-  font-size: 1.5rem;
-  bottom: 1rem;
-  left: -3rem;
-  background-color: aliceblue;
-  color: black;
-  font-style: italic;
-  overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-}
-.gallery {
-  list-style: none;
-  max-height: 50vh;
-  width: 30rem;
-  overflow: auto;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-around;
-  padding-left: 4rem;
-}
-.gallery_item {
-  border: 2px solid lightgrey;
-  border-radius: 40px;
-  overflow: hidden;
-  min-width: 10rem;
-  max-height: 9.5rem;
-  margin-top: 10px;
+
+.query-form button {
+  padding: 10px;
+  background: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
   cursor: pointer;
 }
-.gallery_item_image {
-  width: 10rem;
-  height: 8rem;
-  object-fit: cover;
+
+.query-form button:hover {
+  background: #0056b3;
 }
 
-.gallery_item_title {
-  display: block;
-  width: 10rem;
-  height: 2.8rem;
-  font-size: 1.2rem;
-  background-color: aliceblue;
+#queryButton,
+#prevButton,
+#nextButton {
+  padding: 10px 20px;
+  margin: 10px;
+  background: #28a745;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+#prevButton:disabled,
+#nextButton:disabled {
+  background: #ccc;
+  cursor: not-allowed;
+}
+
+.navigation {
   text-align: center;
 }
-.gallery_item_image {
-  display: block;
+
+.gallery {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  list-style: none;
+  padding: 0;
 }
 
-.logo {
-  font-family: LakeshoreDrive;
-  font-size: 2rem;
-  text-align: center;
-  background-color: azure;
-  text-transform: uppercase;
-  letter-spacing: 8px;
-}
-.detailedContainer_title:hover {
-  white-space: wrap
+.gallery_item {
+  cursor: pointer;
+  max-width: 200px;
 }
 
-.hidden .detailedFrame {
-  display: none
+.gallery_item img {
+  max-width: 100%;
+  height: auto;
 }
-.hidden .gallery {
-  margin-top:5vh;
-  max-height: 80vh;
 
-
+.detailedContainer {
+  position: relative;
+  max-width: 800px;
+  margin: 0 auto;
 }
+
+.detailedContainer_image {
+  max-width: 100%;
+  height: auto;
+}
+
+.animation-left {
+  animation: slideInLeft 0.5s ease-in-out;
+}
+
+.animation-right {
+  animation: slideInRight 0.5s ease-in-out;
+}
+
 #hidingButton {
-  fill: red;
-  width: 3rem;
-  height: 3rem;
-  background-color: transparent;
-  border: 0;
   position: absolute;
-  top: 0.5rem;
-  right: 0.5rem;
+  top: 10px;
+  right: 10px;
+  background: none;
+  border: none;
+  cursor: pointer;
 }
 
-@media screen and (min-width: 500px) {
-  .main {
-    flex-direction: row-reverse;
-    flex-wrap: nowrap;
-  }
-  .detailedContainer {
-    margin-top: 2.2rem;
-  }
-  .detailedContainer_title {
-    bottom: 4rem;
-  }
-
-  .gallery_item_image {
-    width: 12rem;
-    height: 10rem;
-  }
-  .gallery {
-    max-height: 80vh;
-    width: auto;
-    flex-wrap: nowrap;
-    flex-direction: column;
-    padding-left: 4rem;
-    justify-content: flex-start;
-  }
-
-  .gallery_item {
-    min-width: 12rem;
-    min-height: 13rem;
-    max-height: 9rem;
-  }
-  .gallery_item_title {
-    width: 12rem;
-    height: 3rem;
-    font-size: 1.5rem;
-    background-color: aliceblue;
-    text-align: center;
-  }
-  .hidden.main {
-    justify-content: center;
-  }
-  .hidden .gallery {
-    display: grid;
-    column-gap: 5vw;
-    grid-template-columns: repeat(4, 1fr);
-    margin-right: 1.3vw;
-  
-  
-  }
-
-  
-
-}
-@media screen and (min-width: 1000px) {
-  
-  .detailedFrame {
-    margin-top: 5rem;
-  }
-  .detailedContainer_image {
-    width: 60rem;
-    height: 45rem;
-  }
-  .detailedContainer_title {
-    width: 38ch;
-    position: absolute;
-    font-size: 2.8rem;
-    bottom: 3rem;
-    left: -8rem;
-  }
-  
-  .gallery_item {
-    width: 25rem;
-    min-width: 25rem;
-    min-height: 18rem;
-    max-height: 18rem;
-  }
-
-  .gallery_item_image {
-    width: 25rem;
-    height: 15rem;
-  }
-  .gallery {
-    list-style: none;
-    max-height: 85vh;
-    padding-right: 3rem;
-    margin-left: 4rem;
-  }
-  .gallery_item_title {
-    display: block;
-    width: 25rem;
-    font-size: 2.5rem;
-    background-color: aliceblue;
-    text-align: center;
-  }
-  .gallery_item_image {
-    display: block;
-  }
-  
-  
-
-  .gallery li:nth-child(1) {
-    margin-top: 0;
-  }
-  .logo {
-    font-size: 4rem;
-  }
-  .hidden .gallery {
-    display: grid;
-    column-gap: 5vw;
-    grid-template-columns: repeat(3, 1fr);
-    margin-right: 1.3vw;
-  
-  
-  }
+#hidingButton svg {
+  width: 24px;
+  height: 24px;
+  fill: #fff;
 }

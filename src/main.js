@@ -1,46 +1,104 @@
 import GalleryComponent from "./components/GalleryComponent.js";
-import serviceObj from "./services/CatsApiService.js";
+import QueryFormComponent from "./components/QueryFormComponent.js";
+import MoviesApiService from "./services/MoviesApiService.js";
 
-//refernces to the HTML elements
-let galleryItems;
+// Ссылки на элементы DOM
+const querySection = document.querySelector(".query-section");
+const mainElem = document.querySelector(".main");
 const detailedContainerImage = document.querySelector(".detailedContainer_image");
 const detailedContainerTitle = document.querySelector(".detailedContainer_title");
 const hidingButton = document.getElementById("hidingButton");
 const galleryElement = document.querySelector(".gallery");
-let allImagesElem;
-//objects
+const queryButton = document.getElementById("queryButton");
+const prevButton = document.getElementById("prevButton");
+const nextButton = document.getElementById("nextButton");
+
+// Объекты
+const service = new MoviesApiService();
 const galleryComponent = new GalleryComponent(galleryElement);
-const mainElem = document.querySelector(".main") ;
-//functions
+
+// Функции
 function setDetails(itemElement) {
-    detailedContainerImage.src = itemElement.getAttribute("data-detailed-image");
-    detailedContainerTitle.innerHTML = itemElement.getAttribute("data-detailed-title");
-    mainElem.classList.remove("hidden");
-    animate();
+  detailedContainerImage.src = itemElement.getAttribute("data-detailed-image");
+  detailedContainerImage.alt = itemElement.getAttribute("data-thumbnail-title");
+  detailedContainerTitle.innerHTML = itemElement.getAttribute("data-detailed-title");
+  mainElem.classList.remove("none");
+  animate();
 }
 
 function animate() {
-    detailedContainerImage.classList.remove("animation-left");
-    detailedContainerTitle.classList.remove("animation-right");
-    setTimeout(addAnimationClasses);
-    
+  detailedContainerImage.classList.remove("animation-left");
+  detailedContainerTitle.classList.remove("animation-right");
+  requestAnimationFrame(() => {
+    detailedContainerImage.classList.add("animation-left");
+    detailedContainerTitle.classList.add("animation-right");
+  });
 }
 
-function addAnimationClasses() {
-    detailedContainerImage.classList.add("animation-left");
-    detailedContainerTitle.classList.add("animation-right"); 
+const hideDetails = () => mainElem.classList.add("none");
+
+function showForm() {
+  querySection.classList.remove("none");
+  mainElem.classList.add("none");
 }
-const hideDetails = () => mainElem.classList.add("hidden");
-//actions
-hidingButton.addEventListener("click", hideDetails)
-serviceObj.getData().then(data => {
-    galleryComponent.renderThumbnailElements(data);
-    galleryItems = document.querySelectorAll(".gallery_item");
-    galleryItems.forEach((item,index) => item.addEventListener("click", () => setDetails(galleryItems[index])));
-   allImagesElem = document.querySelectorAll("img");
-    allImagesElem.forEach(elem => elem.addEventListener("error", () => {
-        elem.onerror=null;
-        elem.src=
-        'data:image/jpeg;base64,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'
-        }))
-})
+
+function showGallery() {
+  querySection.classList.add("none");
+  mainElem.classList.remove("none");
+}
+
+function updateNavigation() {
+  prevButton.disabled = !service.hasPrev();
+  nextButton.disabled = !service.hasNext();
+}
+
+// Инициализация формы
+const queryForm = new QueryFormComponent(querySection, (submittedObj) => {
+  service.getData(submittedObj)
+    .then(data => {
+      galleryComponent.renderThumbnailElements(data);
+      showGallery();
+      updateNavigation();
+      document.querySelectorAll(".gallery img").forEach(elem => {
+        elem.addEventListener("error", () => {
+          console.warn(`Failed to load image: ${elem.src}`);
+          elem.onerror = null;
+          elem.src = '.../../images/noImage.webp';
+          elem.alt = 'no Image movie poster';
+        });
+      });
+    })
+    .catch(error => {
+      console.error("Failed to load movies:", error);
+    });
+}, service.getFormStructureObject());
+
+// Обработчики событий
+hidingButton.addEventListener("click", hideDetails);
+queryButton.addEventListener("click", showForm);
+galleryElement.addEventListener("click", (event) => {
+  const item = event.target.closest(".gallery_item");
+  if (item) {
+    setDetails(item);
+  }
+});
+prevButton.addEventListener("click", () => {
+  service.getPrev()
+    .then(data => {
+      galleryComponent.renderThumbnailElements(data);
+      updateNavigation();
+    })
+    .catch(error => {
+      console.error("Failed to load previous page:", error);
+    });
+});
+nextButton.addEventListener("click", () => {
+  service.getNext()
+    .then(data => {
+      galleryComponent.renderThumbnailElements(data);
+      updateNavigation();
+    })
+    .catch(error => {
+      console.error("Failed to load next page:", error);
+    });
+});
