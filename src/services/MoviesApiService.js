@@ -72,10 +72,10 @@ export default class MoviesApiService {
     return data.results.map(movie => ({
       thumbnailTitle: movie.title,
       thumbnailImg: movie.poster_path
-        ? `https://image.tmdb.org/t/p/w200${movie.poster_path}f`
+        ? `https://image.tmdb.org/t/p/w200${movie.poster_path}`
         : "../../images/noImage.webp",
       detailedImg: movie.poster_path
-        ? `https://image.tmdb.org/t/p/w500${movie.poster_path}f`
+        ? `https://image.tmdb.org/t/p/w500${movie.poster_path}`
         : "../../images/noImage.webp",
       detailedTitle: movie.overview || "No description available",
     }));
